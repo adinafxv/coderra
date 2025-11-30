@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Coderra email signature</title>
+        <style>
+            html, body {
+                height: 100%;
+                font-family: Helvetica, Arial, sans-serif;
+                font-weight: 400;
+            }
+
+            div, input, label, form {
+                box-sizing: content-box;
+            }
+
+            .wrapper {
+                margin-bottom: 24px;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+
+            @media only screen and (min-width: 450px) {
+                .container {
+                    max-width: 480px;
+                }
+            }
+
+            h1, h2 {
+                font-family: Helvetica, Arial, sans-serif;
+                font-weight: 600;
+                margin: 0.6em 0 1.2em 0;
+            }
+
+            h1 {
+                font-size: 40px;
+                text-align: center;
+            }
+
+            @media only screen and (min-width: 1366px) {
+                h1 {
+                    margin-top: 72px;
+                }
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .no-margin {
+                margin: 0;
+            }
+
+            .form {
+                display: flex;
+                flex-direction: column;
+                font-family: Helvetica, Arial, sans-serif;
+                width: 100%;
+                margin: 0 auto;
+            }
+
+            .form--field,
+            .button {
+                margin-bottom: 24px;
+            }
+
+            label, input {
+                display: inline-block;
+                width: 100%;
+                max-width: 88vw;
+                margin-bottom: 2px;
+                font-size: 16px;
+                line-height: 20px;
+            }
+
+            label {
+                margin-bottom: 4px;
+            }
+
+            input {
+                padding: 4px 8px;
+                height: 24px;
+                border: 1px solid #E9E9E9;
+                background-color: #ffffff;
+                border-bottom: 2px solid #D6D6D6;
+            }
+
+            input[type="text"]:active,
+            input[type="text"]:focus {
+                border-bottom: 2px solid #000000;
+            }
+
+            input[type="text"]:focus {
+                outline: none;
+            }
+
+            input[type="text"]::placeholder {
+                font-style: italic;
+                color: #999;
+                font-size: 14px;
+            }
+
+            .button,
+            input[type="submit"] {
+                background: #000000;
+                border-radius: 6px;
+                color: #ffffff;
+                font-family: Helvetica, Arial, sans-serif;
+                font-weight: 600;
+                height: 32px;
+                min-width: 100%;
+                padding: 8px 0;
+                letter-spacing: 1px;
+                cursor: pointer;
+                border: none;
+            }
+
+            .form input[type="submit"]:focus,
+            .form input[type="submit"]:active {
+                outline: none;
+            }
+
+            .form input[type="submit"]:active {
+                background: #333333;
+            }
+
+            button {
+                display: none;
+                width: 100%;
+                background: #000000;
+                border-radius: 6px;
+                color: #ffffff;
+                font-size: 16px;
+                font-family: Helvetica, Arial, sans-serif;
+                font-weight: 600;
+                height: 51px;
+                padding: 8px 0;
+                letter-spacing: 1px;
+                cursor: pointer;
+                margin: 16px 0;
+                border: none;
+            }
+
+            button:focus,
+            button:active {
+                outline: none;
+            }
+
+            button:active {
+                background: #333333;
+            }
+
+            .table {
+                margin: 24px auto;
+                width: 480px;
+                padding: 16px;
+            }
+
+            .hint {
+                font-size: 14px;
+                color: #666;
+                font-style: italic;
+                line-height: 1.4;
+                margin: 0 4px;
+                vertical-align: middle;
+            }
+
+            .hint--margin {
+                display: block;
+                margin-top: 4px;
+                margin-bottom: 12px;
+            }
+
+            .hint--toggle {
+                display: none;
+            }
+
+            .hint_final {
+                text-align: center;
+                margin-bottom: 24px;
+            }
+
+            .wrapper {
+                min-height: 100%;
+                display: flex;
+                justify-content: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Coderra email signature generator</h1>
+        <div class="wrapper">
+            <div class="container">
+                <div class="form-container">
+                    <form id="form" class="form" action="" style="display: flex; flex-direction: column;">
+                        <div class="form--field">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" id="name" placeholder="Name">
+                        </div>
+                        <div class="form--field">
+                            <label for="surname">Surname</label>
+                            <input type="text" name="surname" id="surname" placeholder="Surname">
+                        </div>
+                        <div class="form--field">
+                            <label for="job">Job title</label>
+                            <input type="text" name="job" id="job" placeholder="Chief Operations Officer">
+                        </div>
+                        <div class="form--field">
+                            <label for="email">Email</label>
+                            <input type="text" name="email" id="email" placeholder="name.surname@coderra.tech">
+                            <span class="hint">If your email address is too long, add a space before '@' to break it into two lines. (The space won't be in mailto link.)</span>
+                        </div>
+                        <div class="form--field">
+                            <label for="telephone">Phone</label>
+                            <input type="text" name="telephone" placeholder="+420 777 777 777" id="telephone">
+                        </div>
+
+                        <input class="button" type="submit" value="Generate signature">
+                    </form>
+                </div>
+
+                <p class="hint_final">Your signature</p>
+                <div id="table-root" class="table"></div>
+                <p class="hint_final hint--toggle">...looks good?</p>
+                <button id="button-select">Copy your signature!</button>
+            </div>
+        </div>
+
+        <script>
+            "use strict";
+
+            (function () {
+                // FORM & TABLE ROOT VARIABLES
+                var form = document.querySelector("#form");
+                var rootDiv = document.querySelector("#table-root");
+                var buttonSelect = document.querySelector("#button-select");
+                var buttonMessage = document.querySelector(".hint--toggle");
+
+                // Function to generate email signature
+                var generateEmailSignatureDOM = function generateEmailSignatureDOM(data) {
+                    // TABLE ELEMENT VARIABLES
+                    var table = document.createElement("table");
+                    var tableBody = document.createElement("tbody");
+
+                    // ROW 1 - LOGO AND NAME
+                    var row1 = document.createElement("tr");
+                    var row1cell1 = document.createElement("td");
+                    var row1cell1Img = document.createElement("img");
+                    var row1cell2 = document.createElement("td");
+                    var row1cell2Name = document.createElement("div");
+
+                    // ROW 2 - LOGO AND JOB TITLE
+                    var row2 = document.createElement("tr");
+                    var row2cell1 = document.createElement("td");
+                    var row2cell2 = document.createElement("td");
+                    var row2cell2Job = document.createElement("div");
+
+                    // ROW 3 - LOGO AND EMAIL
+                    var row3 = document.createElement("tr");
+                    var row3cell1 = document.createElement("td");
+                    var row3cell2 = document.createElement("td");
+                    var row3cell2Email = document.createElement("a");
+
+                    // ROW 4 - LOGO AND PHONE
+                    var row4 = document.createElement("tr");
+                    var row4cell1 = document.createElement("td");
+                    var row4cell2 = document.createElement("td");
+                    var row4cell2Phone = document.createElement("div");
+
+                    // ROW 5 - SEPARATOR
+                    var row5 = document.createElement("tr");
+                    var row5cell1 = document.createElement("td");
+                    var row5cell2 = document.createElement("td");
+                    var row5cell2Hr = document.createElement("hr");
+
+                    // ROW 6 - TAGLINE AND WEBSITE
+                    var row6 = document.createElement("tr");
+                    var row6cell1 = document.createElement("td");
+                    var row6cell1Text = document.createElement("div");
+                    var row6cell2 = document.createElement("td");
+                    var row6cell2Link = document.createElement("a");
+
+                    // TABLE ATTRIBUTES
+                    table.setAttribute("cellpadding", "0");
+                    table.setAttribute("cellspacing", "0");
+                    table.setAttribute("style", "font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.5; color: #000000;");
+
+                    // ROW 1 - LOGO AND NAME
+                    row1cell1.setAttribute("rowspan", "4");
+                    row1cell1.setAttribute("style", "vertical-align: top; padding-right: 40px;");
+                    row1cell1Img.setAttribute("src", "https://raw.githubusercontent.com/adinafxv/coderra/refs/heads/main/Coderra.png");
+                    row1cell1Img.setAttribute("alt", "Coderra");
+                    row1cell1Img.setAttribute("width", "120");
+                    row1cell1Img.setAttribute("style", "display: block;");
+
+                    row1cell2.setAttribute("style", "vertical-align: top; padding-bottom: 8px;");
+                    row1cell2Name.innerText = data.name + " " + data.surname;
+                    row1cell2Name.setAttribute("style", "font-size: 32px; font-weight: normal; color: #000000; margin: 0; padding: 0; line-height: 1.1;");
+
+                    // ROW 2 - JOB TITLE
+                    row2cell2.setAttribute("style", "vertical-align: top; padding-bottom: 16px;");
+                    row2cell2Job.innerText = data.job;
+                    row2cell2Job.setAttribute("style", "font-size: 18px; color: #000000; margin: 0; padding: 0; line-height: 1.3;");
+
+                    // ROW 3 - EMAIL
+                    row3cell2.setAttribute("style", "vertical-align: top; padding-bottom: 4px;");
+                    row3cell2Email.innerText = data.email;
+                    row3cell2Email.setAttribute("href", "mailto:" + data.email.replace(/\s+/g, ''));
+                    row3cell2Email.setAttribute("style", "font-size: 18px; color: #000000; text-decoration: none; display: inline-block; line-height: 1.3;");
+
+                    // ROW 4 - PHONE
+                    row4cell2.setAttribute("style", "vertical-align: top; padding-bottom: 20px;");
+                    row4cell2Phone.innerText = data.telephone;
+                    row4cell2Phone.setAttribute("style", "font-size: 18px; color: #000000; margin: 0; padding: 0; line-height: 1.3;");
+
+                    // ROW 5 - SEPARATOR
+                    row5cell1.setAttribute("colspan", "2");
+                    row5cell1.setAttribute("style", "padding: 0;");
+                    row5cell2Hr.setAttribute("style", "border: 0; border-top: 2px solid #000000; margin: 0;");
+
+                    // ROW 6 - TAGLINE AND WEBSITE
+                    row6cell1.setAttribute("style", "vertical-align: middle; padding-right: 80px; padding-top: 16px;");
+                    row6cell1Text.innerText = "Grow better.";
+                    row6cell1Text.setAttribute("style", "font-size: 18px; font-weight: bold; color: #000000; margin: 0; padding: 0; white-space: nowrap;");
+
+                    row6cell2.setAttribute("style", "vertical-align: middle; text-align: right; padding-top: 16px;");
+                    row6cell2Link.innerText = "Coderra.tech";
+                    row6cell2Link.setAttribute("href", "https://coderra.tech");
+                    row6cell2Link.setAttribute("style", "font-size: 18px; color: #000000; text-decoration: underline; display: inline-block;");
+
+                    // DOM MANIPULATION - APPEND ELEMENTS
+                    // Row 1
+                    row1cell1.appendChild(row1cell1Img);
+                    row1.appendChild(row1cell1);
+                    row1cell2.appendChild(row1cell2Name);
+                    row1.appendChild(row1cell2);
+
+                    // Row 2
+                    row2.appendChild(row2cell1);
+                    row2cell2.appendChild(row2cell2Job);
+                    row2.appendChild(row2cell2);
+
+                    // Row 3
+                    row3.appendChild(row3cell1);
+                    row3cell2.appendChild(row3cell2Email);
+                    row3.appendChild(row3cell2);
+
+                    // Row 4
+                    row4.appendChild(row4cell1);
+                    row4cell2.appendChild(row4cell2Phone);
+                    row4.appendChild(row4cell2);
+
+                    // Row 5
+                    row5cell1.appendChild(row5cell2Hr);
+                    row5.appendChild(row5cell1);
+
+                    // Row 6
+                    row6cell1.appendChild(row6cell1Text);
+                    row6.appendChild(row6cell1);
+                    row6cell2.appendChild(row6cell2Link);
+                    row6.appendChild(row6cell2);
+
+                    // Append all rows to table body
+                    tableBody.appendChild(row1);
+                    tableBody.appendChild(row2);
+                    tableBody.appendChild(row3);
+                    tableBody.appendChild(row4);
+                    tableBody.appendChild(row5);
+                    tableBody.appendChild(row6);
+
+                    table.appendChild(tableBody);
+                    rootDiv.appendChild(table);
+
+                    // Scroll table to bottom of screen if screen width is medium or smaller
+                    scrollScreen();
+                };
+
+                // Scroll table to bottom of screen if screen width is medium or smaller
+                var scrollScreen = function scrollScreen() {
+                    var mq = window.matchMedia("(min-width: 1366px)");
+                    if (!mq.matches) {
+                        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth'});
+                    }
+                }
+
+                // Shows copy button after table is generated
+                var showCopyButton = function showCopyButton() {
+                    buttonSelect.setAttribute("style", "display: block;");
+                    buttonMessage.setAttribute("style", "display: block;");
+                }
+
+                // Toggles button text when table is generated and copied
+                var changeButtonText = function changeButtonText() {
+                    if (rootDiv.hasChildNodes()) {
+                        buttonSelect.innerText = "Copied!";
+                    } else {
+                        buttonSelect.innerText = "Copy your signature!";
+                    }
+                }
+
+                // Selects table content & copies to clipboard
+                var selectTable = function selectTable() {
+                    rootDiv.removeAttribute("style", "border: 1px dashed #999;");
+                    window.getSelection().selectAllChildren(document.getElementById("table-root"));
+                    document.execCommand('copy');
+                    window.getSelection().removeAllRanges();
+                }
+
+                // Event Listener for form submission
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    // Data object is passed to function to generate table
+                    var data = {};
+                    data.name = e.target.elements.name.value || 'Name';
+                    data.surname = e.target.elements.surname.value || 'Surname';
+                    data.job = e.target.elements.job.value || 'Chief Operations Officer';
+                    data.email = e.target.elements.email.value || 'Name.Surname@coderra.tech';
+                    data.telephone = e.target.elements.telephone.value || '+420 777 777 777';
+
+                    // If table doesn't exist, show copy button
+                    if (!rootDiv.hasChildNodes()) {
+                        showCopyButton();
+                    }
+
+                    // If table already exists, remove it
+                    if (rootDiv.hasChildNodes()) {
+                        rootDiv.removeChild(rootDiv.firstChild);
+                    }
+
+                    // Change copy button text - called after table is removed
+                    changeButtonText();
+
+                    // Generate new table with form values
+                    generateEmailSignatureDOM(data);
+
+                    // Set dashed line on rootDiv
+                    rootDiv.setAttribute("style", "border: 1px dashed #999;");
+                });
+
+                // Event Listener for button select on table
+                buttonSelect.addEventListener('click', function (e) {
+                    if (rootDiv.hasChildNodes()) {
+                        selectTable();
+                        changeButtonText();
+                    }
+                });
+            })();
+        </script>
+    </body>
+</html>
