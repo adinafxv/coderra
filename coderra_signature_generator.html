@@ -90,16 +90,20 @@
             }
 
             input[type="text"]:active,
-            input[type="text"]:focus {
+            input[type="text"]:focus,
+            input[type="email"]:active,
+            input[type="email"]:focus {
                 border-bottom: 2px solid #000000;
             }
 
-            input[type="text"]:focus {
+            input[type="text"]:focus,
+            input[type="email"]:focus {
                 outline: none;
             }
 
-            input[type="text"]::placeholder {
-                font-style: italic;
+            input[type="text"]::placeholder,
+            input[type="email"]::placeholder {
+                font-style: normal;
                 color: #999;
                 font-size: 14px;
             }
@@ -199,24 +203,20 @@
                     <form id="form" class="form" action="" style="display: flex; flex-direction: column;">
                         <div class="form--field">
                             <label for="name">Name</label>
-                            <input type="text" name="name" id="name" placeholder="Name">
-                        </div>
-                        <div class="form--field">
-                            <label for="surname">Surname</label>
-                            <input type="text" name="surname" id="surname" placeholder="Surname">
+                            <input type="text" name="name" id="name">
                         </div>
                         <div class="form--field">
                             <label for="job">Job title</label>
-                            <input type="text" name="job" id="job" placeholder="Chief Operations Officer">
+                            <input type="text" name="job" id="job">
                         </div>
                         <div class="form--field">
                             <label for="email">Email</label>
-                            <input type="text" name="email" id="email" placeholder="name.surname@coderra.tech">
-                            <span class="hint">If your email address is too long, add a space before '@' to break it into two lines. (The space won't be in mailto link.)</span>
+                            <input type="email" name="email" id="email" required>
+                            <span class="hint">Email will be a clickable mailto link in the signature.</span>
                         </div>
                         <div class="form--field">
                             <label for="telephone">Phone</label>
-                            <input type="text" name="telephone" placeholder="+420 777 777 777" id="telephone">
+                            <input type="text" name="telephone" id="telephone">
                         </div>
 
                         <input class="button" type="submit" value="Generate signature">
@@ -246,131 +246,107 @@
                     var table = document.createElement("table");
                     var tableBody = document.createElement("tbody");
 
-                    // ROW 1 - LOGO AND NAME
+                    // ROW 1 - LOGO AND CONTACT INFO
                     var row1 = document.createElement("tr");
                     var row1cell1 = document.createElement("td");
                     var row1cell1Img = document.createElement("img");
                     var row1cell2 = document.createElement("td");
-                    var row1cell2Name = document.createElement("div");
 
-                    // ROW 2 - LOGO AND JOB TITLE
+                    // Contact info elements
+                    var contactName = document.createElement("div");
+                    var contactJob = document.createElement("div");
+                    var contactEmail = document.createElement("a");
+                    var contactPhone = document.createElement("a");
+
+                    // ROW 2 - SEPARATOR
                     var row2 = document.createElement("tr");
                     var row2cell1 = document.createElement("td");
                     var row2cell2 = document.createElement("td");
-                    var row2cell2Job = document.createElement("div");
+                    var row2cell2Hr = document.createElement("hr");
 
-                    // ROW 3 - LOGO AND EMAIL
+                    // ROW 3 - TAGLINE AND WEBSITE
                     var row3 = document.createElement("tr");
                     var row3cell1 = document.createElement("td");
+                    var row3cell1Text = document.createElement("div");
                     var row3cell2 = document.createElement("td");
-                    var row3cell2Email = document.createElement("a");
-
-                    // ROW 4 - LOGO AND PHONE
-                    var row4 = document.createElement("tr");
-                    var row4cell1 = document.createElement("td");
-                    var row4cell2 = document.createElement("td");
-                    var row4cell2Phone = document.createElement("div");
-
-                    // ROW 5 - SEPARATOR
-                    var row5 = document.createElement("tr");
-                    var row5cell1 = document.createElement("td");
-                    var row5cell2 = document.createElement("td");
-                    var row5cell2Hr = document.createElement("hr");
-
-                    // ROW 6 - TAGLINE AND WEBSITE
-                    var row6 = document.createElement("tr");
-                    var row6cell1 = document.createElement("td");
-                    var row6cell1Text = document.createElement("div");
-                    var row6cell2 = document.createElement("td");
-                    var row6cell2Link = document.createElement("a");
+                    var row3cell2Link = document.createElement("a");
 
                     // TABLE ATTRIBUTES
                     table.setAttribute("cellpadding", "0");
                     table.setAttribute("cellspacing", "0");
                     table.setAttribute("style", "font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.5; color: #000000;");
 
-                    // ROW 1 - LOGO AND NAME
-                    row1cell1.setAttribute("rowspan", "4");
-                    row1cell1.setAttribute("style", "vertical-align: top; padding-right: 40px;");
+                    // ROW 1 - LOGO AND CONTACT INFO
+                    row1cell1.setAttribute("style", "vertical-align: top; padding-right: 24px;");
                     row1cell1Img.setAttribute("src", "https://raw.githubusercontent.com/adinafxv/coderra/refs/heads/main/Coderra.png");
                     row1cell1Img.setAttribute("alt", "Coderra");
-                    row1cell1Img.setAttribute("width", "120");
+                    row1cell1Img.setAttribute("width", "100");
                     row1cell1Img.setAttribute("style", "display: block;");
 
-                    row1cell2.setAttribute("style", "vertical-align: top; padding-bottom: 8px;");
-                    row1cell2Name.innerText = data.name + " " + data.surname;
-                    row1cell2Name.setAttribute("style", "font-size: 32px; font-weight: normal; color: #000000; margin: 0; padding: 0; line-height: 1.1;");
+                    row1cell2.setAttribute("style", "vertical-align: top; padding-bottom: 12px;");
 
-                    // ROW 2 - JOB TITLE
-                    row2cell2.setAttribute("style", "vertical-align: top; padding-bottom: 16px;");
-                    row2cell2Job.innerText = data.job;
-                    row2cell2Job.setAttribute("style", "font-size: 18px; color: #000000; margin: 0; padding: 0; line-height: 1.3;");
+                    // Contact info styling
+                    if (data.name) {
+                        contactName.innerText = data.name;
+                        contactName.setAttribute("style", "font-size: 24px; font-weight: normal; color: #000000; margin: 0; padding: 0; line-height: 1.2; margin-bottom: 4px;");
+                        row1cell2.appendChild(contactName);
+                    }
 
-                    // ROW 3 - EMAIL
-                    row3cell2.setAttribute("style", "vertical-align: top; padding-bottom: 4px;");
-                    row3cell2Email.innerText = data.email;
-                    row3cell2Email.setAttribute("href", "mailto:" + data.email.replace(/\s+/g, ''));
-                    row3cell2Email.setAttribute("style", "font-size: 18px; color: #000000; text-decoration: none; display: inline-block; line-height: 1.3;");
+                    if (data.job) {
+                        contactJob.innerText = data.job;
+                        contactJob.setAttribute("style", "font-size: 16px; color: #000000; margin: 0; padding: 0; line-height: 1.3; margin-bottom: 4px;");
+                        row1cell2.appendChild(contactJob);
+                    }
 
-                    // ROW 4 - PHONE
-                    row4cell2.setAttribute("style", "vertical-align: top; padding-bottom: 20px;");
-                    row4cell2Phone.innerText = data.telephone;
-                    row4cell2Phone.setAttribute("style", "font-size: 18px; color: #000000; margin: 0; padding: 0; line-height: 1.3;");
+                    if (data.email) {
+                        contactEmail.innerText = data.email;
+                        contactEmail.setAttribute("href", "mailto:" + data.email);
+                        contactEmail.setAttribute("style", "font-size: 16px; color: #000000; text-decoration: none; display: block; line-height: 1.3; margin-bottom: 4px;");
+                        row1cell2.appendChild(contactEmail);
+                    }
 
-                    // ROW 5 - SEPARATOR
-                    row5cell1.setAttribute("colspan", "2");
-                    row5cell1.setAttribute("style", "padding: 0;");
-                    row5cell2Hr.setAttribute("style", "border: 0; border-top: 2px solid #000000; margin: 0;");
+                    if (data.telephone) {
+                        contactPhone.innerText = data.telephone;
+                        contactPhone.setAttribute("href", "tel:" + data.telephone.replace(/\s+/g, ''));
+                        contactPhone.setAttribute("style", "font-size: 16px; color: #000000; text-decoration: none; display: block; line-height: 1.3;");
+                        row1cell2.appendChild(contactPhone);
+                    }
 
-                    // ROW 6 - TAGLINE AND WEBSITE
-                    row6cell1.setAttribute("style", "vertical-align: middle; padding-right: 80px; padding-top: 16px;");
-                    row6cell1Text.innerText = "Grow better.";
-                    row6cell1Text.setAttribute("style", "font-size: 18px; font-weight: bold; color: #000000; margin: 0; padding: 0; white-space: nowrap;");
+                    // ROW 2 - SEPARATOR
+                    row2cell1.setAttribute("colspan", "2");
+                    row2cell1.setAttribute("style", "padding: 8px 0;");
+                    row2cell2Hr.setAttribute("style", "border: 0; border-top: 1px solid #000000; margin: 0;");
 
-                    row6cell2.setAttribute("style", "vertical-align: middle; text-align: right; padding-top: 16px;");
-                    row6cell2Link.innerText = "Coderra.tech";
-                    row6cell2Link.setAttribute("href", "https://coderra.tech");
-                    row6cell2Link.setAttribute("style", "font-size: 18px; color: #000000; text-decoration: underline; display: inline-block;");
+                    // ROW 3 - TAGLINE AND WEBSITE
+                    row3cell1.setAttribute("style", "vertical-align: middle; padding-right: 40px; padding-top: 8px;");
+                    row3cell1Text.innerText = "Grow better.";
+                    row3cell1Text.setAttribute("style", "font-size: 16px; font-weight: bold; color: #000000; margin: 0; padding: 0; white-space: nowrap;");
+
+                    row3cell2.setAttribute("style", "vertical-align: middle; text-align: right; padding-top: 8px;");
+                    row3cell2Link.innerText = "Coderra.tech";
+                    row3cell2Link.setAttribute("href", "https://coderra.tech");
+                    row3cell2Link.setAttribute("style", "font-size: 16px; color: #000000; text-decoration: underline; display: inline-block;");
 
                     // DOM MANIPULATION - APPEND ELEMENTS
-                    // Row 1
+                    // Row 1 - Logo and contact info
                     row1cell1.appendChild(row1cell1Img);
                     row1.appendChild(row1cell1);
-                    row1cell2.appendChild(row1cell2Name);
                     row1.appendChild(row1cell2);
 
-                    // Row 2
+                    // Row 2 - Separator
+                    row2cell1.appendChild(row2cell2Hr);
                     row2.appendChild(row2cell1);
-                    row2cell2.appendChild(row2cell2Job);
-                    row2.appendChild(row2cell2);
 
-                    // Row 3
+                    // Row 3 - Tagline and website
+                    row3cell1.appendChild(row3cell1Text);
                     row3.appendChild(row3cell1);
-                    row3cell2.appendChild(row3cell2Email);
+                    row3cell2.appendChild(row3cell2Link);
                     row3.appendChild(row3cell2);
-
-                    // Row 4
-                    row4.appendChild(row4cell1);
-                    row4cell2.appendChild(row4cell2Phone);
-                    row4.appendChild(row4cell2);
-
-                    // Row 5
-                    row5cell1.appendChild(row5cell2Hr);
-                    row5.appendChild(row5cell1);
-
-                    // Row 6
-                    row6cell1.appendChild(row6cell1Text);
-                    row6.appendChild(row6cell1);
-                    row6cell2.appendChild(row6cell2Link);
-                    row6.appendChild(row6cell2);
 
                     // Append all rows to table body
                     tableBody.appendChild(row1);
                     tableBody.appendChild(row2);
                     tableBody.appendChild(row3);
-                    tableBody.appendChild(row4);
-                    tableBody.appendChild(row5);
-                    tableBody.appendChild(row6);
 
                     table.appendChild(tableBody);
                     rootDiv.appendChild(table);
@@ -416,11 +392,10 @@
 
                     // Data object is passed to function to generate table
                     var data = {};
-                    data.name = e.target.elements.name.value || 'Name';
-                    data.surname = e.target.elements.surname.value || 'Surname';
-                    data.job = e.target.elements.job.value || 'Chief Operations Officer';
-                    data.email = e.target.elements.email.value || 'Name.Surname@coderra.tech';
-                    data.telephone = e.target.elements.telephone.value || '+420 777 777 777';
+                    data.name = e.target.elements.name.value;
+                    data.job = e.target.elements.job.value;
+                    data.email = e.target.elements.email.value;
+                    data.telephone = e.target.elements.telephone.value;
 
                     // If table doesn't exist, show copy button
                     if (!rootDiv.hasChildNodes()) {

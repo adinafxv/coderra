@@ -1,0 +1,666 @@
+<!DOCTYPE html >
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Leveris email signature</title>
+        <link href="https://fonts.googleapis.com/css?family=Barlow:400,400i,600&display=swap&subset=latin-ext" rel="stylesheet">
+        <style>
+            html, body {
+            height: 100%;
+            font-family: 'Barlow', sans-serif;
+            font-weight: 400;
+            }
+
+            div, input, label, form {
+                box-sizing: content-box;
+            }
+
+            .wrapper {
+                margin-bottom: 24px;
+            }
+
+            .container {
+                max-width: 100%; 
+            }
+
+            @media only screen and (min-width: 450px) {
+                .container {
+                    max-width: 420px;
+                }
+            }
+
+
+            h1, h2 {
+            font-family: 'Barlow', sans-serif;
+            font-weight: 600;
+            margin: 0.6em 0 1.2em 0;
+            }
+
+            h1 {
+            font-size: 40px;
+            text-align: center; 
+            }
+
+            @media only screen and (min-width: 1366px) {
+                h1 {
+                    margin-top: 72px;
+                }
+            }
+
+            h2 {
+            font-size: 24px;
+            }
+
+            .no-margin {
+                margin: 0;
+            }
+
+            .form {
+            display: flex;
+            flex-direction: column;
+            font-family: 'Barlow', sans-serif;
+            width: 100%;
+            margin: 0 auto; }
+
+            .form--field, 
+            .button, 
+            .dashed-border {
+                margin-bottom: 24px;
+            }
+
+            .form--field_inline label, 
+            .form--field_inline input {
+                width: auto;
+            }
+
+            .form--section {
+                margin-left: 16px;
+            }
+
+            
+            label, input {
+                display: inline-block;
+                width: 100%;
+                max-width: 88vw;
+                margin-bottom: 2px;
+                font-size: 16px;
+                line-height: 20px;
+            }
+
+            label {
+                margin-bottom: 4px;
+            }
+
+            input {
+                padding: 4px 8px;
+                height: 24px;
+                border: 1px solid #E9E9E9;
+                background-color: #ffffff;
+                border-bottom: 2px solid #D6D6D6;
+            }
+
+
+            .checkbox {
+                height: 16px;
+            }
+
+            input[type="text"]:active,
+            input[type="text"]:focus {
+                border-bottom: 2px solid #5BC4F5; }
+            input[type="text"]:focus {
+                outline: none; }
+            input[type="text"]::placeholder {
+                font-style: italic;
+                color: #999;
+                font-size: 14px;
+            }
+
+
+            .button, 
+            input[type="submit"] {
+                background: #0377BB;
+                border-radius: 6px;
+                color: #ffffff;
+                font-family: 'Barlow', sans-serif;
+                font-weight: 600;
+                height: 32px;
+                min-width: 100%;
+                padding: 8px 0;
+                letter-spacing: 1px;
+                cursor: pointer;
+                }
+            .form input[type="submit"]:focus,
+            .form input[type="submit"]:active {
+                outline: none; }
+            .form input[type="submit"]:active {
+                background: #0068A8; }
+            
+            button {
+                display: none;
+                width: 100%;
+                background: #00876D;
+                border-radius: 6px;
+                color: #ffffff;
+                font-size: 16px;
+                font-family: 'Barlow', sans-serif;
+                font-weight: 600;
+                height: 51px;
+                padding: 8px 0;
+                letter-spacing: 1px;
+                cursor: pointer;
+                margin: 16px 0;
+            }
+
+            button:focus,
+            button:active {
+                outline: none;
+            }
+
+            button:active {
+                background: #006C58;
+            }
+
+            .table {
+            margin: 24px auto;
+            width: 380px;
+            padding: 16px;
+           }
+
+            .hint {
+                font-size: 14px;
+                color: #666;
+                font-style: italic;
+                line-height: 1;
+                margin: 0 4px;
+                vertical-align: middle;
+            }
+
+            .hint--margin {
+                display: block;
+                margin-top: 4px;
+                margin-bottom: 12px;
+            }
+
+            .hint--toggle {
+                display: none;
+            }
+
+            .hint_final {
+                text-align: center;
+                margin-bottom: 24px;
+            }
+
+            .wrapper {
+            min-height: 100%;
+            display: flex;
+            justify-content: center; }
+        </style>
+    </head>
+    <body>
+
+        <h1>Leveris email signature generator ✨</h1>
+        <div class="wrapper">
+            
+                <div class="container">
+        
+        
+                    <div class="form-container">
+        
+                        <form id="form" class="form" action="" style="display: flex; flex-direction: column;">
+                            <div class="form--field">
+                                <label for="name">Name and surname</label>
+                                <input type="text" name="name" id="name">
+                            </div>
+                           <div class="form--field">
+                                <label for="email">Email</label>
+                                <input type="text" name="email" id="email">
+                                <span class="hint">If your email address is too long, add a space before '@', '.com' or at another suitable place to break it into two lines. (The space won‘t be in mailto link, don‘t worry.)</span>
+                            </div>
+                            <div class="form--field">
+                                <label for="job">Job</label>
+                                <input type="text" name="job" id="job">
+                            </div>
+                           
+                            <div class="form--field">
+                                <label for="telephone">Phone (optional)</label>
+                                <input type="text" name="telephone" placeholder="+420 123 456 789" id="telephone" >
+                            </div>
+                            <div class="form--field form--field_inline">
+                                <input class="checkbox" type="checkbox" name="phonevisible" id="phone-visible">
+                                <label for="phone-visible">Phone number visible</label>
+                            </div>
+                            <h2>Additional website (optional)</h2>
+                            <div class="form--field">
+                                <label for="visible-text">Visible text</label>
+                                <input type="text" name="visibletext" id="visible-text">
+                            </div>
+                            <div class="form--field">
+                                <label for="website-url">Website URL</label>
+                                <input type="text" name="websiteurl" id="website-url" placeholder="https://www.yourwebsite.com">
+                            </div>
+                            
+                            <input class="button" type="submit" value="Generate signature">
+                        </form>
+                        
+                    </div>
+                
+                    <p class="hint_final">Your signature ⬇️</p>
+                    <div id="table-root" class="table"></div>
+                    <p class="hint_final hint--toggle">...looks good? </p>
+                    <button id="button-select">Copy your signature!</button>
+                    
+                </div>
+
+        </div>
+
+
+       
+        <script>
+            "use strict";
+
+            (function () {
+
+              
+                //  FORM & TABLE ROOT VARIABLES
+                var form = document.querySelector("#form");
+                var rootDiv = document.querySelector("#table-root");
+                // Checkbox input for phone number visible
+                var phoneVisible = document.querySelector("#phone-visible");
+                // Store button select for table & paragraph
+                var buttonSelect = document.querySelector("#button-select");
+                var buttonMessage = document.querySelector(".hint--toggle");
+
+
+                // Function to generate table
+                var generateEmailSignatureDOM = function generateEmailSignatureDOM(data) {
+
+                    // ---------- VARIABLES ---------------->
+         
+                    // TABLE ELEMENT VARIABLES
+                    var table = document.createElement("table");
+                    var tableHead = document.createElement("thead");
+                    var tableBody = document.createElement("tbody");
+
+                    // TABLE HEAD ROW 1 - NAME & EMAIL
+                    var row1 = document.createElement("tr");
+                    var cell1 = document.createElement("td");
+                    var cell1Heading = document.createElement("h3");
+                    var cell2 = document.createElement("td");
+                    var cell2Img = document.createElement("img");
+                    var cell3 = document.createElement("td");
+                    var cell3Span = document.createElement("span");
+                    var cell3Link = document.createElement("a");
+
+                    // TABLE HEAD ROW 2 - JOB & LEVERIS WEB
+                    var row2 = document.createElement("tr");
+                    var row2cell1 = document.createElement("td");
+                    var row2cell1Para = document.createElement("p");
+                    var row2cell1Span = document.createElement("span");
+                    var row2cell2 = document.createElement("td");
+                    var row2cell2Img = document.createElement("img");
+                    var row2cell3 = document.createElement("td");
+                    var row2cell3Link = document.createElement("a");
+
+                    // TABLE HEAD ROW 3 - PHONE NUMBER
+                    var row3 = document.createElement("tr");
+                    var row3cell1 = document.createElement("td");
+                    var row3cell2 = document.createElement("td");
+                    var row3cell2Img = document.createElement("img");
+                    var row3cell3 = document.createElement("td");
+                    var row3cell3para = document.createElement("p");
+                    var row3cell3Link = document.createElement("a");
+                    // If addional website is provided, create extra link element
+                    if (data.visibleText && data.websiteURL) {
+                        var row3Webcell3Link = document.createElement("a");
+                    }
+
+
+                    // TABLE HEAD ROW 4 - EMPTY CELL FOR PADDING & BORDER-BOTTOM
+                    var row4 = document.createElement("tr");
+                    var row4cell1 = document.createElement("td");
+
+                    // TABLE BODY ROW 1 - EMPTY CELL FOR PADDING
+                    var bodyRow1 = document.createElement("tr");
+                    var bodyRowCell1 = document.createElement("td");
+
+                    // TABLE BODY ROW 2 - LEVERIS LOGO & SOCIAL LINKS
+                    var bodyRow2 = document.createElement("tr");
+                    var bodyRow2Cell1 = document.createElement("td");
+                    var bodyRow2Cell1Img = document.createElement("img");
+                    var bodyRow2Cell2 = document.createElement("td");
+                    var bodyRow2Cell2Link1 = document.createElement("a");
+                    var bodyRow2Cell2Img1 = document.createElement("img");
+                    var bodyRow2Cell2Link2 = document.createElement("a");
+                    var bodyRow2Cell2Img2 = document.createElement("img");
+                    var bodyRow2Cell2Link3 = document.createElement("a");
+                    var bodyRow2Cell2Img3 = document.createElement("img");
+                    var bodyRow2Cell2Link4 = document.createElement("a");
+                    var bodyRow2Cell2Img4 = document.createElement("img");
+
+                    // -------------ATTRIBUTES---------------->
+
+                    // TABLE ATTRIBUTES
+                    table.setAttribute("cellpadding", "0");
+                    table.setAttribute("cellspacing", "0");
+                    table.setAttribute("width", "380");
+                    table.setAttribute("style", "vertical-align: -webkit-baseline-middle; font-size: 16px; font-family: Arial;");
+
+                    // ATTRIBUTES TABLE HEAD ROW 1 - NAME & EMAIL
+                    cell1.setAttribute("style", "vertical-align: bottom;");
+                    cell1.setAttribute("colspan", "2");
+                    cell1.setAttribute("height", "24");
+                    cell1Heading.innerText = data.name;
+                    cell1Heading.setAttribute("color", "#272729");
+                    cell1Heading.setAttribute("style", "margin: 0px; padding: 0px 16px 4px 0px; font-size: 16px; color: rgb(39, 39, 41);");
+                    cell2.setAttribute("style", "vertical-align:top; padding: 4px 8px 0px 16px; border-left: 1px solid #d6d6d6;");
+                    cell2Img.setAttribute("src", "http://cdn.leveris.com/sign/signature_email-icon_2x_12x12.png");
+                    cell2Img.setAttribute("alt", "Email Logo");
+                    cell2Img.setAttribute("width", "12");
+                    cell2Img.setAttribute("height", "12");
+                    cell2Img.setAttribute("style", "vertical-align: middle; padding: 4px 0px;");
+                    cell3Span.setAttribute("color", "#808285");
+                    cell3Span.setAttribute("style", "display: block;");
+                    cell3Link.innerText = "" + data.email;
+                    cell3Link.setAttribute("href", "mailto:" + data.email.replace(/\s+/g, ''));
+                    cell3Link.setAttribute("color", "#272729");
+                    cell3Link.setAttribute("style", "text-decoration:none !important; text-decoration: none; color: rgb(39, 39, 41); font-size: 12px; word-break: break-word;");
+
+                    // ATTRIBUTES TABLE HEAD ROW 2 - JOB & LEVERIS WEB
+                    row2cell1.setAttribute("colspan", "2");
+                    row2cell1.setAttribute("height", "24");
+                    row2cell1.setAttribute("style", "vertical-align: top;");
+                    row2cell1Para.setAttribute("color", "#272729");
+                    row2cell1Para.setAttribute("font-size", "small");
+                    row2cell1Para.setAttribute("style", "margin: 0px; vertical-align:top; padding: 4px 16px 0px 0px; color: rgb(39, 39, 41); font-size: 12px;");
+                    row2cell1Span.innerText = data.job;
+                    row2cell2.setAttribute("style", "vertical-align:top; padding: 4px 8px 0px 16px; border-left: 1px solid #d6d6d6;");
+                    row2cell2Img.setAttribute("width", "12");
+                    row2cell2Img.setAttribute("height", "12");
+                    row2cell2Img.setAttribute("style", "padding: 4px 0px;");
+                    row2cell2Img.setAttribute("src", "http://cdn.leveris.com/sign/signature_link-icon_2x_12x12.png");
+                    row2cell2Img.setAttribute("alt", "Web Link Logo");
+                    row2cell3Link.innerText = "leveris.com";
+                    row2cell3Link.setAttribute("href", " https://leveris.com/?utm_source=Email%20Signature&utm_medium=Email%20Signature&utm_campaign=Email%20Signature");
+                    row2cell3Link.setAttribute("color", "#272729");
+                    row2cell3Link.setAttribute("style", "line-height:14px;text-decoration:none !important; text-decoration:none; color: rgb(39, 39, 41); font-size: 12px; display: block;");
+                    // Additional Web Link - If user fills in both additional website fields
+                    if (data.visibleText && data.websiteURL) {
+                        row2cell3.setAttribute("style", "padding: 4px 0;");
+                        row3Webcell3Link.setAttribute("href", data.websiteURL.replace(/\s+/g, ''));
+                        row3Webcell3Link.innerText = data.visibleText;
+                        row3Webcell3Link.setAttribute("color", "#272729");
+                        row3Webcell3Link.setAttribute("style", "line-height:14px;padding-top:4px;text-decoration:none !important; text-decoration:none; color: rgb(39, 39, 41); font-size: 12px; display: block;");
+                    }
+                     
+
+                    // ATTRIBUTES TABLE HEAD ROW 3 - PHONE NUMBER
+                    row3.setAttribute('id', 'phone-toggle');
+                    row3cell1.setAttribute("colspan", "2");
+                    row3cell1.setAttribute("style", "height:24px; font-size: 0px;");
+                    row3cell2.setAttribute("style", "vertical-align:top; padding: 4px 16px 0px px; border-left: 1px solid #d6d6d6;");
+                    row3cell2Img.setAttribute("src", "http://cdn.leveris.com/sign/signature_phone-icon_2x_12x12.png");
+                    row3cell2Img.setAttribute("alt", "Phone Logo");
+                    row3cell2Img.setAttribute("width", "12");
+                    row3cell2Img.setAttribute("width", "12");
+                    row3cell2Img.setAttribute("style", "vertical-align: middle; padding: 4px 0px;");
+                    row3cell2.setAttribute("style", "padding: 0px 8px 0px 16px; border-left: 1px solid #d6d6d6;");
+                    row3cell3para.setAttribute("color", "#272729");
+                    row3cell3para.setAttribute("font-size", "small");
+                    row3cell3para.setAttribute("style", "margin: 0px; padding: 0px 5px 0px 0px; color: rgb(39, 39, 41); font-size: 12px; line-height: 20px;");
+                    // If user doesn't enter phone number, use default
+                    if (data.telephone === "") {
+                        row3cell3Link.innerText = "" + data.telephoneDefault;
+                        row3cell3Link.setAttribute("href", "tel:" + data.telephoneDefault.replace(/\s+/g, ''));
+                    } else {
+                        row3cell3Link.innerText = "" + data.telephone;
+                        row3cell3Link.setAttribute("href", "tel:" + data.telephone.replace(/\s+/g, ''));
+                    }
+                    row3cell3Link.setAttribute("style", "padding-bottom: 4px;text-decoration:none !important; text-decoration:none; color: rgb(39, 39, 41);font-size: 12px;");
+
+                    // ATTRIBUTES TABLE HEAD ROW 4 - EMPTY CELL FOR PADDING & BORDER-BOTTOM
+                    row4cell1.setAttribute("colspan", "4");
+                    row4cell1.setAttribute("style", "padding: 0px 0px 16px 0px; border-bottom: 1px solid #d6d6d6;font-size: 0px;");
+
+                    // ATTRIBUTES TABLE BODY ROW 1 - EMPTY CELL FOR PADDING
+                    bodyRowCell1.setAttribute("colspan", "4");
+                    bodyRowCell1.setAttribute("style", "padding: 0px 0px 16px 0px; font-size: 0px;");
+
+                    // ATTRIBUTES TABLE BODY ROW 2 - LEVERIS LOGO & SOCIAL LINKS
+
+                    // Leveris Logo
+                    bodyRow2Cell1.setAttribute("colspan", "2");
+                    bodyRow2Cell1Img.setAttribute("src", "http://cdn.leveris.com/sign/signature_leveris-logo_2x_132x31.png");
+                    bodyRow2Cell1Img.setAttribute("alt", "Leveris logo");
+                    bodyRow2Cell1Img.setAttribute("width", "132");
+                    bodyRow2Cell1Img.setAttribute("height", "31");
+                    bodyRow2Cell1Img.setAttribute("style", "padding: 2px 0px 0px 0px;");
+                    // Facebook
+                    bodyRow2Cell2.setAttribute("colspan", "2");
+                    bodyRow2Cell2.setAttribute("style", "padding: 2px 0px 0px 0px; text-align: right;");
+                    bodyRow2Cell2Link1.setAttribute("href", "http://www.linkedin.com/company/10381018");
+                    bodyRow2Cell2Link1.setAttribute("style", "display: inline-block; padding-left: 4px;");
+                    bodyRow2Cell2Img1.setAttribute("src", "http://cdn.leveris.com/sign/signature_social-linkedin_2x_26x26.png");
+                    bodyRow2Cell2Img1.setAttribute("alt", "Leveris on LinkedIn");
+                    bodyRow2Cell2Img1.setAttribute("width", "26");
+                    bodyRow2Cell2Img1.setAttribute("height", "26");
+                    // Twitter
+                    bodyRow2Cell2Link2.setAttribute("href", "https://twitter.com/WeAreLeveris");
+                    bodyRow2Cell2Link2.setAttribute("style", "display: inline-block; padding-left: 4px;");
+                    bodyRow2Cell2Img2.setAttribute("src", "http://cdn.leveris.com/sign/signature_social-twitter_2x_26x26.png");
+                    bodyRow2Cell2Img2.setAttribute("alt", "Leveris on Twitter");
+                    bodyRow2Cell2Img2.setAttribute("width", "26");
+                    bodyRow2Cell2Img2.setAttribute("height", "26");
+                     // Linkedin
+                    bodyRow2Cell2Link3.setAttribute("href", "https://www.instagram.com/weareleveris/");
+                    bodyRow2Cell2Link3.setAttribute("style", "display: inline-block; padding-left: 4px;");
+                    bodyRow2Cell2Img3.setAttribute("src", "http://cdn.leveris.com/sign/signature_social-instagram_2x_26x26.png");
+                    bodyRow2Cell2Img3.setAttribute("alt", "Leveris on Instagram");
+                    bodyRow2Cell2Img3.setAttribute("width", "26");
+                    bodyRow2Cell2Img3.setAttribute("height", "26");
+                    // Instagram
+                    bodyRow2Cell2Link4.setAttribute("href", "https://www.facebook.com/WeAreLeveris");
+                    bodyRow2Cell2Link4.setAttribute("style", "display: inline-block; padding-left: 4px;");
+                    bodyRow2Cell2Img4.setAttribute("src", "http://cdn.leveris.com/sign/signature_social-facebook_2x_26x26.png");
+                    bodyRow2Cell2Img4.setAttribute("alt", "Leveris on Facebook");
+                    bodyRow2Cell2Img4.setAttribute("width", "26");
+                    bodyRow2Cell2Img4.setAttribute("height", "26");
+                    
+                    // --------- DOM MANIPULATION ----------------->
+        
+                    // APPEND TABLE HEAD ROW 1 - NAME & EMAIL
+                    cell1.appendChild(cell1Heading);
+                    row1.appendChild(cell1);
+                    cell2.appendChild(cell2Img);
+                    row1.appendChild(cell2);
+                    cell3Span.appendChild(cell3Link);
+                    cell3.appendChild(cell3Span);
+                    row1.append(cell3);
+
+                    // APPEND TABLE HEAD ROW 2 - JOB & LEVERIS WEB
+                    row2cell1Para.appendChild(row2cell1Span);
+                    row2cell1.appendChild(row2cell1Para);
+                    row2.appendChild(row2cell1);
+                    row2cell2.appendChild(row2cell2Img);
+                    row2.appendChild(row2cell2);
+                    row2cell3.appendChild(row2cell3Link);
+                    // If user provides additional website, append this link too
+                    if (data.visibleText && data.websiteURL) {
+                        row2cell3.appendChild(row3Webcell3Link);
+                    }
+                    row2.appendChild(row2cell3);
+
+
+                    // APPEND TABLE HEAD ROW 3 - PHONE NUMBER
+                    row3cell2.appendChild(row3cell2Img);
+                    row3cell3para.appendChild(row3cell3Link);
+                    row3cell3.appendChild(row3cell3para);
+                    row3.appendChild(row3cell1);
+                    row3.appendChild(row3cell2);
+                    row3.appendChild(row3cell3);
+
+                    // APPEND TABLE HEAD ROW 4 - EMPTY CELL FOR PADDING & BORDER-BOTTOM
+                    row4.appendChild(row4cell1);
+                    // APPEND TABLE BODY ROW 1 - EMPTY CELL FOR PADDING
+                    bodyRow1.appendChild(bodyRowCell1);
+
+                    // APPEND TABLE BODY ROW 2 - LEVERIS LOGO & SOCIAL LINKS
+                    bodyRow2Cell1.appendChild(bodyRow2Cell1Img);
+                    bodyRow2.appendChild(bodyRow2Cell1);
+                    bodyRow2Cell2Link1.appendChild(bodyRow2Cell2Img1);
+                    bodyRow2Cell2.appendChild(bodyRow2Cell2Link1);
+                    bodyRow2Cell2Link2.appendChild(bodyRow2Cell2Img2);
+                    bodyRow2Cell2.appendChild(bodyRow2Cell2Link2);
+                    bodyRow2Cell2Link3.appendChild(bodyRow2Cell2Img3);
+                    bodyRow2Cell2.appendChild(bodyRow2Cell2Link3);
+                    bodyRow2Cell2Link4.appendChild(bodyRow2Cell2Img4);
+                    bodyRow2Cell2.appendChild(bodyRow2Cell2Link4);
+                    bodyRow2.appendChild(bodyRow2Cell2);
+
+                    // Append thead, tbody , table to rootDiv
+                    tableHead.appendChild(row1);
+                    tableHead.appendChild(row2);
+                    tableHead.appendChild(row3);
+                    tableHead.appendChild(row4);
+                    tableBody.appendChild(bodyRow1);
+                    tableBody.appendChild(bodyRow2);
+                    table.appendChild(tableHead);
+                    table.appendChild(tableBody);
+                    rootDiv.appendChild(table);
+
+                    // If phone visible checkbox is unchecked when generated, and user doesn't enter number, hide the phone row
+                    if (!data.phoneVisible && data.telephone === '') {
+                        row3.setAttribute("style", "display: none");
+                    }
+
+                     // Scroll table to bottom of screen if screen width is medium or smaller
+                     scrollScreen();
+
+                };
+            
+            // Scroll table to bottom of screen if screen width is medium or smaller
+            var scrollScreen = function scrollScreen() {   
+                var mq = window.matchMedia( "(min-width: 1366px)" );
+                    if (!mq.matches) {
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth'});
+                }
+            }
+
+            // Shows 2nd button and text after table is generated
+            var showCopyButton = function showCopyButton() {
+                buttonSelect.setAttribute("style",  "display: block;");
+                buttonMessage.setAttribute("style", "display: block;")
+            }
+
+            // Toggles button text when table is generated and copied
+            var changeButtonText = function changeButtonText() {
+                if (rootDiv.hasChildNodes()) {
+                     buttonSelect.innerText = "Copied!";
+                } else {
+                    buttonSelect.innerText = "Copy your signature!";
+                }
+            }
+
+            // Selects table content & copies to clipboard
+            var selectTable = function selectTable() {
+
+                // TODO: remove dashed border because it is copying in firefox
+                rootDiv.removeAttribute("style", "border: 1px dashed #999;");
+
+                // Select content inside table root div
+                window.getSelection().selectAllChildren(document.getElementById("table-root"));
+                // Copy selection to clipoard
+                document.execCommand('copy');
+                // Deselect all ranges from selection
+                window.getSelection().removeAllRanges();
+            }
+
+
+            
+
+                // --------  Event Listener for form submission --------------------->
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    // Data object is passed to function to generate table
+                    var data = {};
+                    // Personal info values
+                    data.name = e.target.elements.name.value || 'John Leverisian';
+                    data.email = e.target.elements.email.value || 'john.leverisian@leveris.com';
+                    data.job = e.target.elements.job.value || 'Great fella';
+                    data.telephone = e.target.elements.telephone.value;
+                    data.telephoneDefault = '+420 123 456 789';
+                    // Additional web values
+                    data.visibleText = e.target.elements.visibletext.value;
+                    data.websiteURL = e.target.elements.websiteurl.value;
+                    // Store phone visible value
+                    data.phoneVisible = e.target.elements.phonevisible.checked;
+                         
+                    // Store value for phone number visible
+                    var checkboxToggle = document.querySelector("#phone-visible");
+
+                    // If table doesn't exist, show copy button 
+                    if (!rootDiv.hasChildNodes()) {
+                        showCopyButton();
+                    }
+
+                    // If table already exists, remove it
+                    if (rootDiv.hasChildNodes()) {
+                        rootDiv.removeChild(rootDiv.firstChild);
+                    }
+                    
+                    // Change copy button text - called after table is removed
+                    changeButtonText();
+
+                    // Generate new table with form values
+                    generateEmailSignatureDOM(data);
+
+                    // Set dashed line on rootDiv
+                    rootDiv.setAttribute("style", "border: 1px dashed #999;");
+
+                    // If phone number provided by user equals default, and checkbox is not checked, check the checkbox
+                    if (data.telephone === data.telephoneDefault) {
+                        checkboxToggle.checked = "checked";
+                    }
+                    
+                    // If phone number provided does not equal default, and checkbox is not checked, check the checkbox
+                    if (data.telephone && data.telephone !== data.telephoneDefault) {
+                        checkboxToggle.checked = "checked";
+                    }
+                    
+                });
+
+                // -------- Event listener for phone number visible checkbox --------------->
+                phoneVisible.addEventListener('change', function (e) {
+
+                    // Store phone table row to toggle and checkbox value
+                    var phoneRow = document.querySelector("#phone-toggle");
+                    var checkbox = e.target.checked;
+
+                    // If table exists, and checkbox is unchecked, hide the table
+                    if (rootDiv.hasChildNodes() && !checkbox) {
+                        phoneRow.setAttribute("style", "display: none;");
+                    }
+
+                    // If table exists, and checkbox is checked, show the table
+                    if (rootDiv.hasChildNodes() && checkbox) {
+                        phoneRow.removeAttribute("style", "display: none;");
+                    }
+                });
+
+                // ------ Event Listener for button select on table ------------------------>
+                buttonSelect.addEventListener('click', function (e) {
+                    if (rootDiv.hasChildNodes()) {
+                        selectTable();
+                        changeButtonText();
+                    }
+                })
+               
+            })();
+
+
+        </script>
+
+    </body>
+</html>
