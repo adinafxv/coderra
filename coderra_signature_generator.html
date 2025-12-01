@@ -298,19 +298,19 @@
                     var row2cell2 = document.createElement("td");
                     var row2cell2Hr = document.createElement("hr");
 
-                    // ROW 3 - TAGLINE AND WEBSITE
+                    // ROW 3 - TAGLINE
                     var row3 = document.createElement("tr");
                     var row3cell1 = document.createElement("td");
                     var row3cell1Text = document.createElement("div");
-                    var row3cell2 = document.createElement("td");
-                    var row3cell2Link = document.createElement("a");
 
                     // TABLE ATTRIBUTES
                     table.setAttribute("cellpadding", "0");
                     table.setAttribute("cellspacing", "0");
-                    table.setAttribute("style", "font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.5; color: #000000; table-layout: fixed; width: 321px;");
+                    table.setAttribute("border", "0");
+                    table.setAttribute("style", "font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.5; color: #000000; table-layout: fixed; width: 321px; border-collapse: collapse;");
 
                     // ROW 1 - LOGO AND CONTACT INFO
+                    row1cell1.setAttribute("width", "71");
                     row1cell1.setAttribute("style", "vertical-align: top; padding-right: 10px; width: 71px;");
                     row1cell1Img.setAttribute("src", "https://raw.githubusercontent.com/adinafxv/coderra/main/coderra-c.png");
                     row1cell1Img.setAttribute("alt", "Coderra");
@@ -318,6 +318,7 @@
                     row1cell1Img.setAttribute("height", "61");
                     row1cell1Img.setAttribute("style", "display: block; width: 61px; height: 61px; max-width: 61px; max-height: 61px;");
 
+                    row1cell2.setAttribute("width", "250");
                     row1cell2.setAttribute("style", "vertical-align: top; padding-bottom: 12px; width: 250px;");
 
                     // Contact info styling
@@ -350,17 +351,13 @@
                     // ROW 2 - SEPARATOR
                     row2cell1.setAttribute("colspan", "2");
                     row2cell1.setAttribute("style", "padding: 8px 0;");
-                    row2cell2Hr.setAttribute("style", "border: 0; border-top: 1px solid #000000; margin: 0;");
+                    row2cell2Hr.setAttribute("style", "border: 0; border-top: 1px solid #8F51ED; margin: 0;");
 
-                    // ROW 3 - TAGLINE AND WEBSITE
-                    row3cell1.setAttribute("style", "vertical-align: middle; padding-right: 40px; width: 160px; white-space: nowrap;");
+                    // ROW 3 - TAGLINE
+                    row3cell1.setAttribute("colspan", "2");
+                    row3cell1.setAttribute("style", "vertical-align: middle; padding-top: 0; text-align: right;");
                     row3cell1Text.innerText = "Grow better.";
-                    row3cell1Text.setAttribute("style", "font-size: 16px; font-weight: bold; color: #000000; margin: 0; padding: 0; white-space: nowrap;");
-
-                    row3cell2.setAttribute("style", "vertical-align: middle; text-align: right; width: 161px; white-space: nowrap;");
-                    row3cell2Link.innerText = "Coderra.tech";
-                    row3cell2Link.setAttribute("href", "https://coderra.tech");
-                    row3cell2Link.setAttribute("style", "font-size: 16px; color: #000000; text-decoration: underline; display: inline-block; white-space: nowrap;");
+                    row3cell1Text.setAttribute("style", "font-size: 16px; font-weight: bold; color: #8F51ED; margin: 0; padding: 0;");
 
                     // DOM MANIPULATION - APPEND ELEMENTS
                     // Row 1 - Logo and contact info
@@ -372,11 +369,9 @@
                     row2cell1.appendChild(row2cell2Hr);
                     row2.appendChild(row2cell1);
 
-                    // Row 3 - Tagline and website
+                    // Row 3 - Tagline
                     row3cell1.appendChild(row3cell1Text);
                     row3.appendChild(row3cell1);
-                    row3cell2.appendChild(row3cell2Link);
-                    row3.appendChild(row3cell2);
 
                     // Append all rows to table body
                     tableBody.appendChild(row1);
@@ -488,9 +483,9 @@
                 var testButton = document.querySelector('#test-button');
                 testButton.addEventListener('click', function (e) {
                     e.preventDefault();
-                    document.querySelector('#name').value = 'Theodore Testingmore';
-                    document.querySelector('#job').value = 'Chief Testing Officer';
-                    document.querySelector('#email').value = 'theodore.testingmore@coderra.tech';
+                    document.querySelector('#name').value = 'Theodore Testing';
+                    document.querySelector('#job').value = 'CTO';
+                    document.querySelector('#email').value = 'theodore.testing@coderra.eu';
                     document.querySelector('#telephone').value = '+420 821 111 111';
                 });
             })();
