@@ -188,7 +188,7 @@
 
             .table {
                 margin: 24px auto;
-                width: 480px;
+                width: 280px;
                 padding: 16px;
             }
 
@@ -307,19 +307,19 @@
                     table.setAttribute("cellpadding", "0");
                     table.setAttribute("cellspacing", "0");
                     table.setAttribute("border", "0");
-                    table.setAttribute("style", "font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.5; color: #000000; table-layout: fixed; width: 321px; border-collapse: collapse;");
+                    table.setAttribute("style", "font-family: Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.5; color: #000000; table-layout: fixed; width: 280px; border-collapse: collapse;");
 
                     // ROW 1 - LOGO AND CONTACT INFO
-                    row1cell1.setAttribute("width", "71");
-                    row1cell1.setAttribute("style", "vertical-align: top; padding-right: 10px; width: 71px;");
-                    row1cell1Img.setAttribute("src", "https://raw.githubusercontent.com/adinafxv/coderra/main/coderra-c.png");
+                    row1cell1.setAttribute("width", "96");
+                    row1cell1.setAttribute("style", "vertical-align: top; width: 96px;");
+                    row1cell1Img.setAttribute("src", "https://raw.githubusercontent.com/adinafxv/coderra/refs/heads/main/Coderra.png");
                     row1cell1Img.setAttribute("alt", "Coderra");
-                    row1cell1Img.setAttribute("width", "61");
-                    row1cell1Img.setAttribute("height", "61");
-                    row1cell1Img.setAttribute("style", "display: block; width: 61px; height: 61px; max-width: 61px; max-height: 61px;");
+                    row1cell1Img.setAttribute("width", "80");
+                    row1cell1Img.setAttribute("height", "80");
+                    row1cell1Img.setAttribute("style", "display: block; width: 80px; height: 80px; max-width: 80px; max-height: 80px;");
 
-                    row1cell2.setAttribute("width", "250");
-                    row1cell2.setAttribute("style", "vertical-align: top; padding-bottom: 12px; width: 250px;");
+                    row1cell2.setAttribute("width", "184");
+                    row1cell2.setAttribute("style", "vertical-align: top; padding-bottom: 12px; width: 184px;");
 
                     // Contact info styling
                     if (data.name) {
@@ -330,21 +330,21 @@
 
                     if (data.job) {
                         contactJob.innerText = data.job;
-                        contactJob.setAttribute("style", "font-size: 14px; color: #000000; margin: 0; padding: 0; line-height: 1.2; margin-bottom: 4px;");
+                        contactJob.setAttribute("style", "font-size: 14px; color: #000000; margin: 0; padding: 0; line-height: 1.2; margin-bottom: 10px;");
                         row1cell2.appendChild(contactJob);
                     }
 
                     if (data.email) {
                         contactEmail.innerText = data.email;
                         contactEmail.setAttribute("href", "mailto:" + data.email);
-                        contactEmail.setAttribute("style", "font-size: 14px; color: #000000; text-decoration: underline; display: block; line-height: 1.2; margin-bottom: 4px;");
+                        contactEmail.setAttribute("style", "font-size: 12px; color: #000000; text-decoration: none; display: block; line-height: 1.2; margin-bottom: 4px;");
                         row1cell2.appendChild(contactEmail);
                     }
 
                     if (data.telephone) {
                         contactPhone.innerText = data.telephone;
                         contactPhone.setAttribute("href", "tel:" + data.telephone.replace(/\s+/g, ''));
-                        contactPhone.setAttribute("style", "font-size: 14px; color: #000000; text-decoration: underline; display: block; line-height: 1.2;");
+                        contactPhone.setAttribute("style", "font-size: 12px; color: #000000; text-decoration: none; display: block; line-height: 1.2;");
                         row1cell2.appendChild(contactPhone);
                     }
 
@@ -357,7 +357,7 @@
                     row3cell1.setAttribute("colspan", "2");
                     row3cell1.setAttribute("style", "vertical-align: middle; padding-top: 0; text-align: right;");
                     row3cell1Text.innerText = "Grow better.";
-                    row3cell1Text.setAttribute("style", "font-size: 16px; font-weight: bold; color: #8F51ED; margin: 0; padding: 0;");
+                    row3cell1Text.setAttribute("style", "font-size: 14px; font-weight: bold; color: #8F51ED; margin: 0; padding: 0;");
 
                     // DOM MANIPULATION - APPEND ELEMENTS
                     // Row 1 - Logo and contact info
@@ -396,9 +396,11 @@
                 // Shows copy button after table is generated
                 var showCopyButton = function showCopyButton() {
                     buttonSelect.setAttribute("style", "display: block;");
+                    buttonSelect.classList.remove("button--secondary");
                     buttonMessage.setAttribute("style", "display: block;");
                     signatureTitle.innerText = "Your signature";
                     submitButton.classList.add("button--secondary");
+                    submitButton.value = "Re-generate signature";
                 }
 
                 // Toggles button text when table is generated and copied
@@ -467,6 +469,11 @@
                     // Generate new table with form values
                     generateEmailSignatureDOM(data);
 
+                    // Always reset button states after generation
+                    buttonSelect.classList.remove("button--secondary");
+                    submitButton.classList.add("button--secondary");
+                    submitButton.value = "Re-generate signature";
+
                     // Set dashed line on rootDiv
                     rootDiv.setAttribute("style", "border: 1px dashed #999;");
                 });
@@ -487,6 +494,25 @@
                     document.querySelector('#job').value = 'CTO';
                     document.querySelector('#email').value = 'theodore.testing@coderra.eu';
                     document.querySelector('#telephone').value = '+420 821 111 111';
+
+                    // Trigger input change behavior
+                    if (rootDiv.hasChildNodes()) {
+                        submitButton.value = 'Re-generate signature';
+                        submitButton.classList.remove('button--secondary');
+                        buttonSelect.classList.add('button--secondary');
+                    }
+                });
+
+                // Event Listener for input changes - make generate primary, copy secondary
+                var inputs = document.querySelectorAll('#name, #job, #email, #telephone');
+                inputs.forEach(function(input) {
+                    input.addEventListener('input', function() {
+                        if (rootDiv.hasChildNodes()) {
+                            submitButton.value = 'Re-generate signature';
+                            submitButton.classList.remove('button--secondary');
+                            buttonSelect.classList.add('button--secondary');
+                        }
+                    });
                 });
             })();
         </script>
