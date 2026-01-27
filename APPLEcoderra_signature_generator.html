@@ -305,15 +305,16 @@
                     table.setAttribute("border", "0");
                     table.setAttribute("style", "font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.5; color: #000000; table-layout: fixed; width: 280px; border-collapse: collapse; -webkit-text-size-adjust: 100%;");
 
-                    // ROW 1 - LOGO
+                    // ROW 1 - LOGO (SVG base64 embedded for crisp rendering at any size)
+                    var logoBase64 = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDIiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MiA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTI5LjExOTMgMjUuMjQ1OUMyOC40MDM3IDMwLjEwOTMgMjQuNzcwNyAzMy45ODkgMTguOTM1NyAzMy45ODlDMTEuMzM5NCAzMy45ODkgNy4zNzYwMyAyNy4yNjc3IDcuMzc2MDMgMTkuNzI2N0M3LjM3NjAzIDEyLjI0MDQgMTEuNTA0NiA2LjAxMDkgMTkuMDQ1OCA2LjAxMDlDMjQuNDk1MyA2LjAxMDkgMjcuNzk4MSA5LjA3MTAzIDI4LjczMzggMTQuMzcxNkgzNS42MTQ2VjcuNTQwOTdINDJWMC45Mjg5MzNIMzMuOTYzM1Y3LjU0MDk3SDI3LjUyMjlWMS44MDMyNkMyNC45MzU5IDAuNTQ2MzgxIDIyLjE4MzUgMCAxOS4wNDU5IDBDNy45MjY3IDAgMCA3LjgxNDE2IDAgMTkuNzI2N0MwIDMyLjEzMTEgNi43NzA2MiA0MCAxOC43MTU3IDQwQzI4LjA3MzUgNDAgMzUuMDY0MyAzNS4wODIgMzYuMzMwNCAyNS4yNDU5SDI5LjExOTNaIiBmaWxsPSJibGFjayIvPgo8L3N2Zz4K";
                     row1cell1.setAttribute("width", "96");
                     row1cell1.setAttribute("valign", "top");
                     row1cell1.setAttribute("style", "vertical-align: top; width: 96px; padding: 0; margin: 0;");
-                    row1cell1Img.setAttribute("src", "https://raw.githubusercontent.com/adinafxv/coderra/refs/heads/main/coderra-apple.png");
+                    row1cell1Img.setAttribute("src", logoBase64);
                     row1cell1Img.setAttribute("alt", "Coderra");
                     row1cell1Img.setAttribute("width", "80");
                     row1cell1Img.setAttribute("height", "80");
-                    row1cell1Img.setAttribute("style", "display: block; width: 80px; height: 80px; border: 0; outline: none; -ms-interpolation-mode: bicubic;");
+                    row1cell1Img.setAttribute("style", "display: block; width: 80px; height: 80px; min-width: 80px; max-width: 80px; min-height: 80px; max-height: 80px; border: 0; outline: none; -ms-interpolation-mode: bicubic;");
 
                     // Contact info cell
                     row1cell2.setAttribute("width", "184");
