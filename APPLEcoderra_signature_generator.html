@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Coderra email signature</title>
+        <style>
+            html, body {
+                height: 100%;
+                font-family: Helvetica, Arial, sans-serif;
+                font-weight: 400;
+            }
+
+            div, input, label, form {
+                box-sizing: content-box;
+            }
+
+            .wrapper {
+                margin-bottom: 24px;
+            }
+
+            .container {
+                max-width: 100%;
+            }
+
+            @media only screen and (min-width: 450px) {
+                .container {
+                    max-width: 480px;
+                }
+            }
+
+            h1, h2 {
+                font-family: Helvetica, Arial, sans-serif;
+                font-weight: 600;
+                margin: 0.6em 0 1.2em 0;
+            }
+
+            h1 {
+                font-size: 40px;
+                text-align: center;
+            }
+
+            @media only screen and (min-width: 1366px) {
+                h1 {
+                    margin-top: 72px;
+                }
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .no-margin {
+                margin: 0;
+            }
+
+            .form {
+                display: flex;
+                flex-direction: column;
+                font-family: Helvetica, Arial, sans-serif;
+                width: 100%;
+                margin: 0 auto;
+            }
+
+            .form--field,
+            .button {
+                margin-bottom: 24px;
+            }
+
+            label, input {
+                display: inline-block;
+                width: 100%;
+                max-width: 100%;
+                margin-bottom: 2px;
+                font-size: 16px;
+                line-height: 20px;
+                box-sizing: border-box;
+            }
+
+            label {
+                margin-bottom: 4px;
+            }
+
+            input {
+                padding: 4px 8px;
+                height: 48px;
+                border: 1px solid #E9E9E9;
+                background-color: #ffffff;
+                border-bottom: 2px solid #D6D6D6;
+            }
+
+            input[type="text"]:active,
+            input[type="text"]:focus,
+            input[type="email"]:active,
+            input[type="email"]:focus {
+                border-bottom: 2px solid #000000;
+            }
+
+            input[type="text"]:focus,
+            input[type="email"]:focus {
+                outline: none;
+            }
+
+            input[type="text"]::placeholder,
+            input[type="email"]::placeholder {
+                font-style: normal;
+                color: #999;
+                font-size: 14px;
+            }
+
+            .button,
+            input[type="submit"] {
+                background: #000000;
+                border-radius: 6px;
+                color: #ffffff;
+                font-family: Helvetica, Arial, sans-serif;
+                font-weight: 600;
+                height: 48px;
+                padding: 0;
+                margin: 0;
+                letter-spacing: 1px;
+                cursor: pointer;
+                border: none;
+                box-sizing: border-box;
+            }
+
+            .button--secondary,
+            input[type="submit"].button--secondary {
+                background: #ffffff;
+                color: #000000;
+                border: 2px solid #000000;
+            }
+
+            .button--test {
+                display: inline-block;
+                background: #f0f0f0;
+                color: #666;
+                border: 1px solid #ccc;
+                font-size: 12px;
+                height: 48px;
+                padding: 0 8px;
+                margin: 0;
+                flex-shrink: 0;
+                border-radius: 6px;
+                cursor: pointer;
+                font-family: Helvetica, Arial, sans-serif;
+                font-weight: 600;
+                letter-spacing: 1px;
+                box-sizing: border-box;
+                width: auto;
+            }
+
+            .form input[type="submit"]:focus,
+            .form input[type="submit"]:active {
+                outline: none;
+            }
+
+            .form input[type="submit"]:active {
+                background: #333333;
+            }
+
+            button {
+                display: none;
+                width: 100%;
+                background: #000000;
+                border-radius: 6px;
+                color: #ffffff;
+                font-size: 16px;
+                font-family: Helvetica, Arial, sans-serif;
+                font-weight: 600;
+                height: 51px;
+                padding: 8px 0;
+                letter-spacing: 1px;
+                cursor: pointer;
+                margin: 16px 0;
+                border: none;
+            }
+
+            button:focus,
+            button:active {
+                outline: none;
+            }
+
+            button:active {
+                background: #333333;
+            }
+
+            .table {
+                margin: 24px auto;
+                width: 280px;
+                padding: 16px;
+            }
+
+            .hint {
+                font-size: 14px;
+                color: #666;
+                font-style: italic;
+                line-height: 1.4;
+                margin: 0 4px;
+                vertical-align: middle;
+            }
+
+            .hint--margin {
+                display: block;
+                margin-top: 4px;
+                margin-bottom: 12px;
+            }
+
+            .hint--toggle {
+                display: none;
+            }
+
+            .hint_final {
+                text-align: center;
+                margin-bottom: 24px;
+            }
+
+            .wrapper {
+                min-height: 100%;
+                display: flex;
+                justify-content: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Coderra email signature generator</h1>
+        <div class="wrapper">
+            <div class="container">
+                <div class="form-container">
+                    <form id="form" class="form" action="" style="display: flex; flex-direction: column;">
+                        <div class="form--field">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" id="name" required autocomplete="name">
+                        </div>
+                        <div class="form--field">
+                            <label for="job">Job title</label>
+                            <input type="text" name="job" id="job" required autocomplete="organization-title">
+                        </div>
+                        <div class="form--field">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" required pattern="[^\s]+@[^\s]+\.[^\s]+" autocomplete="email">
+                            <span class="hint">Email will be a clickable mailto link in the signature.</span>
+                        </div>
+                        <div class="form--field">
+                            <label for="telephone">Phone</label>
+                            <input type="text" name="telephone" id="telephone" autocomplete="tel">
+                            <span class="hint">Phone will be a clickable call link in the signature.</span>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <input class="button" type="submit" value="Generate signature" style="flex: 1;">
+                            <button type="button" class="button button--test" id="test-button">test</button>
+                        </div>
+                    </form>
+                </div>
+
+                <p class="hint_final" id="signature-title">Your signature will show here</p>
+                <div id="table-root" class="table"></div>
+                <p class="hint_final hint--toggle">...looks good?</p>
+                <button id="button-select">Copy your signature!</button>
+            </div>
+        </div>
+
+        <script>
+            "use strict";
+
+            (function () {
+                // FORM & TABLE ROOT VARIABLES
+                var form = document.querySelector("#form");
+                var rootDiv = document.querySelector("#table-root");
+                var buttonSelect = document.querySelector("#button-select");
+                var buttonMessage = document.querySelector(".hint--toggle");
+                var signatureTitle = document.querySelector("#signature-title");
+                var submitButton = document.querySelector('input[type="submit"]');
+
+                // Function to generate email signature - Optimized for Apple Mail
+                var generateEmailSignatureDOM = function generateEmailSignatureDOM(data) {
+                    // TABLE ELEMENT VARIABLES
+                    var table = document.createElement("table");
+                    var tableBody = document.createElement("tbody");
+
+                    // ROW 1 - LOGO CELL
+                    var row1 = document.createElement("tr");
+                    var row1cell1 = document.createElement("td");
+                    var row1cell1Img = document.createElement("img");
+
+                    // ROW 1 - CONTACT INFO CELL (using nested table for better Apple Mail compatibility)
+                    var row1cell2 = document.createElement("td");
+                    var contactTable = document.createElement("table");
+                    var contactTbody = document.createElement("tbody");
+
+                    // ROW 2 - SEPARATOR
+                    var row2 = document.createElement("tr");
+                    var row2cell1 = document.createElement("td");
+
+                    // ROW 3 - TAGLINE
+                    var row3 = document.createElement("tr");
+                    var row3cell1 = document.createElement("td");
+                    var row3cell1Text = document.createElement("span");
+
+                    // TABLE ATTRIBUTES - Apple Mail optimized with WebKit properties
+                    table.setAttribute("cellpadding", "0");
+                    table.setAttribute("cellspacing", "0");
+                    table.setAttribute("border", "0");
+                    table.setAttribute("style", "font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.5; color: #000000; table-layout: fixed; width: 280px; border-collapse: collapse; -webkit-text-size-adjust: 100%;");
+
+                    // ROW 1 - LOGO
+                    row1cell1.setAttribute("width", "96");
+                    row1cell1.setAttribute("valign", "top");
+                    row1cell1.setAttribute("style", "vertical-align: top; width: 96px; padding: 0; margin: 0;");
+                    row1cell1Img.setAttribute("src", "coderra-apple.png");
+                    row1cell1Img.setAttribute("alt", "Coderra");
+                    row1cell1Img.setAttribute("width", "80");
+                    row1cell1Img.setAttribute("height", "80");
+                    row1cell1Img.setAttribute("style", "display: block; width: 80px; height: 80px; border: 0; outline: none; -ms-interpolation-mode: bicubic;");
+
+                    // Contact info cell
+                    row1cell2.setAttribute("width", "184");
+                    row1cell2.setAttribute("valign", "top");
+                    row1cell2.setAttribute("style", "vertical-align: top; padding: 0 0 12px 0; width: 184px;");
+
+                    // Nested contact table for better Apple Mail rendering
+                    contactTable.setAttribute("cellpadding", "0");
+                    contactTable.setAttribute("cellspacing", "0");
+                    contactTable.setAttribute("border", "0");
+                    contactTable.setAttribute("style", "font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif; border-collapse: collapse;");
+
+                    // Build contact rows using table structure (not divs)
+                    if (data.name) {
+                        var nameRow = document.createElement("tr");
+                        var nameCell = document.createElement("td");
+                        nameCell.setAttribute("style", "font-size: 14px; font-weight: bold; color: #000000; padding: 0 0 4px 0; line-height: 1.2; font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;");
+                        nameCell.innerText = data.name;
+                        nameRow.appendChild(nameCell);
+                        contactTbody.appendChild(nameRow);
+                    }
+
+                    if (data.job) {
+                        var jobRow = document.createElement("tr");
+                        var jobCell = document.createElement("td");
+                        jobCell.setAttribute("style", "font-size: 14px; color: #000000; padding: 0 0 10px 0; line-height: 1.2; font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;");
+                        jobCell.innerText = data.job;
+                        jobRow.appendChild(jobCell);
+                        contactTbody.appendChild(jobRow);
+                    }
+
+                    if (data.email) {
+                        var emailRow = document.createElement("tr");
+                        var emailCell = document.createElement("td");
+                        emailCell.setAttribute("style", "font-size: 12px; padding: 0 0 4px 0; line-height: 1.2;");
+                        var emailLink = document.createElement("a");
+                        emailLink.setAttribute("href", "mailto:" + data.email);
+                        emailLink.setAttribute("style", "color: #000000; text-decoration: none; font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;");
+                        emailLink.innerText = data.email;
+                        emailCell.appendChild(emailLink);
+                        emailRow.appendChild(emailCell);
+                        contactTbody.appendChild(emailRow);
+                    }
+
+                    if (data.telephone) {
+                        var phoneRow = document.createElement("tr");
+                        var phoneCell = document.createElement("td");
+                        phoneCell.setAttribute("style", "font-size: 12px; padding: 0; line-height: 1.2;");
+                        var phoneLink = document.createElement("a");
+                        phoneLink.setAttribute("href", "tel:" + data.telephone.replace(/\s+/g, ''));
+                        phoneLink.setAttribute("style", "color: #000000; text-decoration: none; font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;");
+                        phoneLink.innerText = data.telephone;
+                        phoneCell.appendChild(phoneLink);
+                        phoneRow.appendChild(phoneCell);
+                        contactTbody.appendChild(phoneRow);
+                    }
+
+                    contactTable.appendChild(contactTbody);
+                    row1cell2.appendChild(contactTable);
+
+                    // ROW 2 - SEPARATOR (using border instead of hr for better compatibility)
+                    row2cell1.setAttribute("colspan", "2");
+                    row2cell1.setAttribute("style", "padding: 8px 0; border-top: 1px solid #8F51ED; font-size: 1px; line-height: 1px;");
+                    row2cell1.innerHTML = "&nbsp;";
+
+                    // ROW 3 - TAGLINE
+                    row3cell1.setAttribute("colspan", "2");
+                    row3cell1.setAttribute("style", "vertical-align: middle; padding: 0; text-align: right;");
+                    row3cell1Text.innerText = "Grow better.";
+                    row3cell1Text.setAttribute("style", "font-size: 14px; font-weight: bold; color: #8F51ED; font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;");
+
+                    // DOM MANIPULATION - APPEND ELEMENTS
+                    // Row 1 - Logo and contact info
+                    row1cell1.appendChild(row1cell1Img);
+                    row1.appendChild(row1cell1);
+                    row1.appendChild(row1cell2);
+
+                    // Row 2 - Separator
+                    row2.appendChild(row2cell1);
+
+                    // Row 3 - Tagline
+                    row3cell1.appendChild(row3cell1Text);
+                    row3.appendChild(row3cell1);
+
+                    // Append all rows to table body
+                    tableBody.appendChild(row1);
+                    tableBody.appendChild(row2);
+                    tableBody.appendChild(row3);
+
+                    table.appendChild(tableBody);
+                    rootDiv.appendChild(table);
+
+                    // Scroll table to bottom of screen if screen width is medium or smaller
+                    scrollScreen();
+                };
+
+                // Scroll table to bottom of screen if screen width is medium or smaller
+                var scrollScreen = function scrollScreen() {
+                    var mq = window.matchMedia("(min-width: 1366px)");
+                    if (!mq.matches) {
+                        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth'});
+                    }
+                }
+
+                // Shows copy button after table is generated
+                var showCopyButton = function showCopyButton() {
+                    buttonSelect.setAttribute("style", "display: block;");
+                    buttonSelect.classList.remove("button--secondary");
+                    buttonMessage.setAttribute("style", "display: block;");
+                    signatureTitle.innerText = "Your signature";
+                    submitButton.classList.add("button--secondary");
+                    submitButton.value = "Re-generate signature";
+                }
+
+                // Toggles button text when table is generated and copied
+                var changeButtonText = function changeButtonText() {
+                    if (rootDiv.hasChildNodes()) {
+                        buttonSelect.innerText = "Copied!";
+                    } else {
+                        buttonSelect.innerText = "Copy your signature!";
+                    }
+                }
+
+                // Selects table content & copies to clipboard - Optimized for Apple Mail
+                var selectTable = function selectTable() {
+                    var table = document.querySelector("#table-root table");
+                    if (!table) return;
+
+                    // Get the HTML content
+                    var htmlContent = table.outerHTML;
+
+                    // Try modern Clipboard API first (better for Apple Mail)
+                    if (navigator.clipboard && window.ClipboardItem) {
+                        var blob = new Blob([htmlContent], { type: 'text/html' });
+                        var clipboardItem = new ClipboardItem({
+                            'text/html': blob,
+                            'text/plain': new Blob([table.innerText], { type: 'text/plain' })
+                        });
+                        navigator.clipboard.write([clipboardItem]).catch(function(err) {
+                            console.error('Clipboard API failed, falling back:', err);
+                            fallbackCopy(table);
+                        });
+                    } else {
+                        fallbackCopy(table);
+                    }
+                }
+
+                // Fallback copy method using selection
+                var fallbackCopy = function fallbackCopy(table) {
+                    var tempDiv = document.createElement('div');
+                    tempDiv.style.position = 'absolute';
+                    tempDiv.style.left = '-9999px';
+                    tempDiv.appendChild(table.cloneNode(true));
+                    document.body.appendChild(tempDiv);
+
+                    var range = document.createRange();
+                    range.selectNodeContents(tempDiv);
+                    var selection = window.getSelection();
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+
+                    try {
+                        document.execCommand('copy');
+                    } catch (err) {
+                        console.error('Failed to copy:', err);
+                    }
+
+                    selection.removeAllRanges();
+                    document.body.removeChild(tempDiv);
+                }
+
+                // Event Listener for form submission
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    // Data object is passed to function to generate table
+                    var data = {};
+                    data.name = e.target.elements.name.value;
+                    data.job = e.target.elements.job.value;
+                    data.email = e.target.elements.email.value;
+                    data.telephone = e.target.elements.telephone.value;
+
+                    // If table doesn't exist, show copy button
+                    if (!rootDiv.hasChildNodes()) {
+                        showCopyButton();
+                    }
+
+                    // If table already exists, remove it
+                    if (rootDiv.hasChildNodes()) {
+                        rootDiv.removeChild(rootDiv.firstChild);
+                    }
+
+                    // Change copy button text - called after table is removed
+                    changeButtonText();
+
+                    // Generate new table with form values
+                    generateEmailSignatureDOM(data);
+
+                    // Always reset button states after generation
+                    buttonSelect.classList.remove("button--secondary");
+                    submitButton.classList.add("button--secondary");
+                    submitButton.value = "Re-generate signature";
+
+                    // Set dashed line on rootDiv
+                    rootDiv.setAttribute("style", "border: 1px dashed #999;");
+                });
+
+                // Event Listener for button select on table
+                buttonSelect.addEventListener('click', function (e) {
+                    if (rootDiv.hasChildNodes()) {
+                        selectTable();
+                        changeButtonText();
+                    }
+                });
+
+                // Event Listener for test button
+                var testButton = document.querySelector('#test-button');
+                testButton.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector('#name').value = 'Theodore Testing';
+                    document.querySelector('#job').value = 'CTO';
+                    document.querySelector('#email').value = 'theodore.testing@coderra.eu';
+                    document.querySelector('#telephone').value = '+420 821 111 111';
+
+                    // Trigger input change behavior
+                    if (rootDiv.hasChildNodes()) {
+                        submitButton.value = 'Re-generate signature';
+                        submitButton.classList.remove('button--secondary');
+                        buttonSelect.classList.add('button--secondary');
+                    }
+                });
+
+                // Event Listener for input changes - make generate primary, copy secondary
+                var inputs = document.querySelectorAll('#name, #job, #email, #telephone');
+                inputs.forEach(function(input) {
+                    input.addEventListener('input', function() {
+                        if (rootDiv.hasChildNodes()) {
+                            submitButton.value = 'Re-generate signature';
+                            submitButton.classList.remove('button--secondary');
+                            buttonSelect.classList.add('button--secondary');
+                        }
+                    });
+                });
+            })();
+        </script>
+    </body>
+</html>
